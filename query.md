@@ -35,13 +35,13 @@ SELECT phone FROM `teachers` WHERE phone IS null;
 
 
 ## Group by:
-## Contare quanti iscritti ci sono stati ogni anno result (709 first year, 608 second year)
+## Contare quanti iscritti ci sono stati ogni anno result
 SELECT COUNT(*) AS `student_count`, YEAR(`enrolment_date`)
 FROM `students`
 GROUP BY YEAR(`enrolment_date`);
 
 
-## Contare gli insegnanti che hanno l'ufficio nello stesso edificio result (29)
+## Contare gli insegnanti che hanno l'ufficio nello stesso edificio result
 SELECT COUNT(*) AS `address_count`, `office_address`
 FROM `teachers`
 GROUP BY `office_address`;
@@ -58,3 +58,48 @@ SELECT COUNT(*) AS `degrees_count`, `department_id`, `departments`.`name` AS `de
 FROM `degrees`
 JOIN `departments` ON `department_id` = `departments`.`id`
 GROUP BY `department_id`;
+
+
+
+
+
+
+## Joins:
+## Selezionare tutti gli studenti iscritti al Corso di Laurea in Economia
+SELECT `students`.`name`, `students`.`surname`, `students`.`registration_number`, `degrees`.`name` AS `degree_name`
+FROM `students`
+JOIN `degrees` ON `degree_id` = `degrees`.`id`
+WHERE `degrees`.`name` = 'Corso di Laurea in Economia';
+
+
+## Selezionare tutti i Corsi di Laurea Magistrale del Dipartimento di Neuroscienze
+SELECT `degrees`.`name`, `degrees`.`level`, `departments`.`name` AS `department_name`
+FROM `degrees`
+JOIN `departments` ON `department_id` = `departments`.`id`
+WHERE `departments`.`name` = 'Dipartimento di Neuroscienze';
+
+
+## Selezionare tutti i corsi in cui insegna Fulvio Amato (id=44)
+SELECT `teachers`.`name`, `teachers`.`id`, `teachers`.`surname`, `course_teacher`.`course_id`, `course_teacher`.`teacher_id` AS `teacher_course`
+FROM `course_teacher`
+JOIN `teachers` ON `course_teacher`.`teacher_id` = `teachers`.`id`
+WHERE `teachers`.`name` = 'Fulvio' AND `teachers`.`surname` = 'Amato';
+
+
+## Selezionare tutti gli studenti con i dati relativi al corso di laurea a cui sono iscritti e il relativo dipartimento, in ordine alfabetico per cognome e nome
+
+
+
+## Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
+
+
+
+## Selezionare tutti i docenti che insegnano nel Dipartimento di Matematica (54)
+
+
+
+
+
+
+## BONUS:
+## Selezionare per ogni studente il numero di tentativi sostenuti per ogni esame, stampando anche il voto massimo. Successivamente, filtrare i tentativi con voto minimo 18.
