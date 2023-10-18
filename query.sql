@@ -35,20 +35,29 @@ SELECT phone FROM `teachers` WHERE phone IS null;
 
 
 -- Group by:
--- Contare quanti iscritti ci sono stati ogni anno
+-- Contare quanti iscritti ci sono stati ogni anno result (709 first year, 608 second year)
+SELECT COUNT(*) AS `student_count`, YEAR(`enrolment_date`)
+FROM `students`
+GROUP BY YEAR(`enrolment_date`);
 
 
-
--- Contare gli insegnanti che hanno l'ufficio nello stesso edificio
-
+-- Contare gli insegnanti che hanno l'ufficio nello stesso edificio result (29)
+SELECT COUNT(*) AS `address_count`, `office_address`
+FROM `teachers`
+GROUP BY `office_address`;
 
 
 -- Calcolare la media dei voti di ogni appello d'esame
-
+LECT COUNT(`exam_id`) AS `exams_count`, AVG(`vote`) AS `average_vote` 
+FROM `exam_student` 
+GROUP BY `exam_id`;
 
 
 -- Contare quanti corsi di laurea ci sono per ogni dipartimento
-
+SELECT COUNT(*) AS `degrees_count`, `department_id`, `departments`.`name` AS `department_name`
+FROM `degrees`
+JOIN `departments` ON `department_id` = `departments`.`id`
+GROUP BY `department_id`;
 
 
 
